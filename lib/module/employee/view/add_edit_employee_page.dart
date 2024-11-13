@@ -12,10 +12,10 @@ import 'package:employee_detail_app/utils/app_strings.dart';
 import 'package:employee_detail_app/utils/app_styles.dart';
 import 'package:employee_detail_app/widgets/common_button.dart';
 import 'package:employee_detail_app/widgets/svg_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 
 class AddEditEmployeePage extends StatefulWidget {
   final Employee? employee;
@@ -51,7 +51,7 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          titleSpacing: 16.w,
+          titleSpacing: 16,
           automaticallyImplyLeading: false,
           elevation: 0,
           title: Text(
@@ -69,23 +69,24 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
                     context
                         .read<EmployeeBloc>()
                         .add(DeleteEmployee(widget.employee?.id ?? 0));
-                    Navigator.pop(context);
+                    popScreen(context);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 16.w, vertical: 10.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 10.h),
                       content: const CustomSnackBar(),
                     ));
                   },
-                  icon: SvgImage(
+                  icon: const SvgImage(
                     image: AppAssets.deleteThin,
-                    height: 24.w,
-                    width: 25.w,
+                    height: 24,
+                    width: 25,
                   ))
           ],
         ),
         body: Stack(children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w).copyWith(top: 24),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 24),
             child: Form(
               key: _formKey,
               child: Column(
@@ -99,8 +100,8 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
                       controller: nameController,
                       hintText: AppStrings.nameHintText,
                       prefixIcon: AppAssets.person,
-                      validator: (value) =>
-                          value!.isEmpty ? AppStrings.nameEmptyMess : null,
+                      // validator: (value) =>
+                      //     value!.isEmpty ? AppStrings.nameEmptyMess : null,
                     ),
                   ),
                   //role
@@ -115,8 +116,8 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
                       onTap: () {
                         showSelectRoleSheet(context, setRole);
                       },
-                      validator: (value) =>
-                          value!.isEmpty ? AppStrings.roleEmptyMess : null,
+                      // validator: (value) =>
+                      //     value!.isEmpty ? AppStrings.roleEmptyMess : null,
                     ),
                   ),
                   //from and to date
@@ -140,8 +141,8 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
                               },
                             );
                           },
-                          validator: (value) =>
-                              value!.isEmpty ? AppStrings.fromDateMess : null,
+                          // validator: (value) =>
+                          //     value!.isEmpty ? AppStrings.fromDateMess : null,
                         ),
                       ),
                       Padding(
@@ -210,13 +211,13 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
                     children: [
                       //cancel
                       Padding(
-                        padding: EdgeInsets.only(right: 16.w),
+                        padding: const EdgeInsets.only(right: 16),
                         child: CommonButton(
                           text: AppStrings.cancelText,
                           buttonColor: AppColors.primaryColor.withOpacity(.1),
                           textColor: AppColors.primaryColor,
                           onTap: () {
-                            Navigator.pop(context);
+                            popScreen(context);
                           },
                         ),
                       ),
@@ -293,7 +294,7 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
   void showTopSnackBar(BuildContext context, String message) {
     // Custom SnackBar at the top
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10.h),
         behavior: SnackBarBehavior.floating,
         content: Text(
           message,

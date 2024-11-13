@@ -1,5 +1,6 @@
 import 'package:employee_detail_app/utils/app_colors.dart';
 import 'package:employee_detail_app/utils/app_constants.dart';
+import 'package:employee_detail_app/utils/app_functions.dart';
 import 'package:employee_detail_app/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +22,7 @@ void showSelectRoleSheet(BuildContext context, Function(String) onPressed) {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  popScreen(context);
                   onPressed(AppConstants.roleList[index]);
                 },
                 child: Container(

@@ -24,4 +24,5 @@ class AppStrings {
   static const String fromDateMess = "Select From date";
   static const String nameEmptyMess = "Name is Empty";
   static const String roleEmptyMess = "Select a Role";
+  static const String employee = "employees";
 }

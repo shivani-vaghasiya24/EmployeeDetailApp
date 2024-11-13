@@ -38,17 +38,25 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
             enabled: enabled,
             contentPadding:
-                EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.borderColor, width: 1.sp),
+              borderSide:
+                  const BorderSide(color: AppColors.borderColor, width: 1),
               borderRadius: BorderRadius.circular(6.r),
             ),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.borderColor, width: 1.sp),
+              borderSide:
+                  const BorderSide(color: AppColors.borderColor, width: 1),
               borderRadius: BorderRadius.circular(6.r),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.borderColor, width: 1.sp),
+              borderSide:
+                  const BorderSide(color: AppColors.borderColor, width: 1),
+              borderRadius: BorderRadius.circular(6.r),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide:
+                  const BorderSide(color: AppColors.borderColor, width: 1),
               borderRadius: BorderRadius.circular(6.r),
             ),
             isDense: true,
@@ -58,9 +66,9 @@ class CustomTextField extends StatelessWidget {
             suffixIcon: isSuffixIcon
                 ? GestureDetector(
                     onTap: onTap,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: const SvgImage(
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: SvgImage(
                         image: AppAssets.dropDown,
                         // height: 24.w,
                         // width: 24.w,
@@ -69,18 +77,18 @@ class CustomTextField extends StatelessWidget {
                 : null,
             prefixIcon: prefixIcon != null
                 ? Padding(
-                    padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: SvgImage(
                       image: prefixIcon!,
-                      height: 24.w,
-                      width: 24.w,
+                      height: 24,
+                      width: 24,
                     ),
                   )
                 : null,
-            prefixIconConstraints:
-                BoxConstraints(maxWidth: 44.w, maxHeight: 24, minHeight: 24),
+            prefixIconConstraints: const BoxConstraints(
+                maxWidth: 44, maxHeight: 24, minHeight: 24),
             suffixIconConstraints:
-                BoxConstraints(maxWidth: 40.w, maxHeight: 20, minHeight: 20)
+                const BoxConstraints(maxWidth: 40, maxHeight: 20, minHeight: 20)
             // suffixIcon: AssetImageWidget(
             //   image: AppAssets.person,
             // )

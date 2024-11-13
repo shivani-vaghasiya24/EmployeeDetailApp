@@ -76,7 +76,7 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.r),
       ),
-      insetPadding: EdgeInsets.symmetric(horizontal: 16.w),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -113,8 +113,8 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                                     },
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 16.w,
+                                const SizedBox(
+                                  width: 16,
                                 ),
                                 Expanded(
                                   child: CommonButton(
@@ -164,8 +164,8 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                                     },
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 16.w,
+                                const SizedBox(
+                                  width: 16,
                                 ),
                                 Expanded(
                                   child: CommonButton(
@@ -219,8 +219,8 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                                 },
                               ),
                             ),
-                            SizedBox(
-                              width: 16.w,
+                            const SizedBox(
+                              width: 16,
                             ),
                             Expanded(
                               child: CommonButton(
@@ -271,25 +271,25 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                   headerStyle: HeaderStyle(
                       formatButtonVisible: false, // Hide format toggle
                       titleCentered: true,
-                      leftChevronIcon: Padding(
+                      leftChevronIcon: const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8),
                         child: SvgImage(
                           image: AppAssets.arrowLeft,
-                          height: 14.h,
-                          width: 14.w,
+                          height: 14,
+                          width: 14,
                           // color:AppColors.borderColor
                         ),
                       ),
-                      rightChevronIcon: Padding(
+                      rightChevronIcon: const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8),
                         child: SvgImage(
                           image: AppAssets.arrowRight,
-                          height: 14.h,
-                          width: 14.w,
+                          height: 14,
+                          width: 14,
                         ),
                       ),
-                      leftChevronPadding: EdgeInsets.only(right: 0.w),
-                      rightChevronPadding: EdgeInsets.only(left: 0.w),
+                      leftChevronPadding: const EdgeInsets.only(right: 0),
+                      rightChevronPadding: const EdgeInsets.only(left: 0),
                       // leftChevronMargin: EdgeInsets.zero,
                       // rightChevronMargin: EdgeInsets.zero,
                       headerMargin: const EdgeInsets.only(right: 42, left: 42),
@@ -331,7 +331,7 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.h),
             child: Container(
-              height: 1.h,
+              height: 1,
               width: double.infinity,
               color: AppColors.dividerColor,
             ),
@@ -339,7 +339,7 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
 
           // Cancel and Save buttons
           Padding(
-            padding: EdgeInsets.only(bottom: 16.w, right: 16.w, left: 16.w),
+            padding: const EdgeInsets.only(bottom: 16, right: 16, left: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -347,12 +347,12 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     //calender icon
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.w),
-                      child: SvgImage(
+                    const Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: const SvgImage(
                         image: AppAssets.calender,
-                        height: 28.h,
-                        width: 24.w,
+                        height: 28,
+                        width: 24,
                       ),
                     ),
                     if (selectedDate != null ||
@@ -372,13 +372,13 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                   children: [
                     //cancel
                     Padding(
-                      padding: EdgeInsets.only(right: 16.w),
+                      padding: const EdgeInsets.only(right: 16),
                       child: CommonButton(
                         text: AppStrings.cancelText,
                         buttonColor: AppColors.primaryColor.withOpacity(.1),
                         textColor: AppColors.primaryColor,
                         onTap: () {
-                          Navigator.pop(context);
+                          popScreen(context);
                         },
                       ),
                     ),
@@ -394,7 +394,7 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                                 selectedDate!));
                           }
                         }
-                        Navigator.pop(context);
+                        popScreen(context);
                       },
                     )
                   ],

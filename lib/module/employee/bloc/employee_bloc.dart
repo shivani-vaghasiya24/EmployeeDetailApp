@@ -56,8 +56,8 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
 
     on<RestoreDeletedEmployee>((event, emit) async {
       if (deletedEmployee != null) {
-        await databaseHelper
-            .insertEmployee(deletedEmployee!); // Restore the deleted employee
+        await databaseHelper.insertEmployee(deletedEmployee!,
+            fromRestore: true); // Restore the deleted employee
         deletedEmployee = null; // Clear the temporary storage
         add(const LoadEmployees(isRefresh: true));
       }

@@ -1,87 +1,83 @@
 import 'package:employee_detail_app/module/employee/model/employee.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
+import 'package:hive/hive.dart';
 
 class DatabaseHelper {
-  static final DatabaseHelper _instance = DatabaseHelper._internal();
-  factory DatabaseHelper() => _instance;
+  static const String _boxName = 'employees';
+  static const String _metadataBoxName = 'metadata'; // New box for metadata
+  static const String _idKey = 'lastUsedId'; // Key to store last used ID
 
-  DatabaseHelper._internal();
-
-  static Database? _database;
-
-  Future<Database?> get database async {
-    if (_database != null) return _database;
-
-    _database = await _initDatabase();
-    return _database;
-  }
-
-  Future<Database?> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'employee.db');
-    return await openDatabase(
-      path,
-      onCreate: (db, version) {
-        return db.execute(
-          "CREATE TABLE employees(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, role TEXT, fromDate TEXT, toDate TEXT)",
-        );
-      },
-      version: 1,
-    );
-  }
-
-  Future<void> insertEmployee(Employee employee) async {
-    final db = await database;
-    await db?.insert('employees', employee.toMap());
-  }
-
-  Future<List<Employee>> fetchEmployees() async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db!.query('employees');
-    print("List of fetched employee $maps");
-    return List.generate(maps.length, (i) {
-      return Employee(
-        id: maps[i]['id'],
-        name: maps[i]['name'],
-        role: maps[i]['role'],
-        fromDate: maps[i]['fromDate'],
-        toDate: maps[i]['toDate'],
-      );
-    });
-  }
-
-  Future<void> updateEmployee(Employee employee) async {
-    final db = await database;
-    await db?.update(
-      'employees',
-      employee.toMap(),
-      where: "id = ?",
-      whereArgs: [employee.id],
-    );
-  }
-
-  Future<void> deleteEmployee(int id) async {
-    final db = await database;
-    await db?.delete(
-      'employees',
-      where: "id = ?",
-      whereArgs: [id],
-    );
-  }
-
-  // Fetch employee by ID
-  Future<Employee?> getEmployeeById(int id) async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db!.query(
-      'employees',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-
-    if (maps.isNotEmpty) {
-      return Employee.fromMap(maps.first);
+  // Insert employee
+  Future<void> insertEmployee(Employee employee,
+      {bool fromRestore = false}) async {
+    final box = await Hive.openBox<Employee>(_boxName);
+    final metadataBox = await Hive.openBox(_metadataBoxName);
+    if (fromRestore || employee.id != null) {
+      await box.put(employee.id, employee);
     } else {
-      return null; // Return null if no employee is found
+      // Generate new unique ID
+      final int newId = await _generateNewId(metadataBox);
+      final newEmployee = employee.copyWith(id: newId);
+      await box.put(newId, newEmployee); // Store employee with new ID
     }
+  }
+
+  // Method to generate a new unique ID
+  Future<int> _generateNewId(Box metadataBox) async {
+    // Retrieve the last used ID, or default to 0 if not set
+    int lastId = metadataBox.get(_idKey, defaultValue: 0) as int;
+
+    // Increment the last ID for the new employee
+    lastId += 1;
+
+    // Store the updated ID back in the metadata box
+    await metadataBox.put(_idKey, lastId);
+
+    return lastId; // Return the new ID
+  }
+
+  // Fetch all employees
+  Future<List<Employee>> fetchEmployees() async {
+    final box = await Hive.openBox<Employee>(_boxName);
+    return box.values.toList(); // Get all employees
+  }
+
+  // Update employee
+  Future<void> updateEmployee(Employee employee) async {
+    final box = await Hive.openBox<Employee>(_boxName);
+    if (employee.id != null) {
+      await box.put(employee.id!, employee); // Update employee at index
+    }
+  }
+
+  // Delete employee
+  Future<void> deleteEmployee(int id) async {
+    final box = await Hive.openBox<Employee>(_boxName);
+    await box.delete(id); //
+    // // Loop through the box to find the employee with the matching ID
+    // final index =
+    //     box.values.toList().indexWhere((employee) => employee.id == id);
+
+    // if (index != -1) {
+    //   await box.deleteAt(index); // Delete the employee by index
+    // } else {
+    //   print("Employee with ID $id not found.");
+    // }
+  }
+
+  // Fetch employee by ID (Hive doesn't have a direct way to query by ID, so we match manually)
+  Future<Employee?> getEmployeeById(int id) async {
+    final box = await Hive.openBox<Employee>(_boxName);
+    return box.get(id);
+    // final index =
+    //     box.values.toList().indexWhere((employee) => employee.id == id);
+    // Employee? employee;
+    // if (index != -1) {
+    //   employee = box.get(index);
+    // }
+    // if (employee != null) {
+    //   return employee; // Return the employee if found
+    // } else {
+    //   return null; // Return null if not found
+    // }
   }
 }

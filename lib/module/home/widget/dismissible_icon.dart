@@ -16,10 +16,10 @@ class DismissibleIcon extends StatelessWidget {
         color: AppColors.deleteColor,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SvgImage(
+        child: const SvgImage(
           image: AppAssets.delete,
-          height: 24.h,
-          width: 24.w,
+          height: 24,
+          width: 24,
         )
         // Icon(
         //   Icons.delete,

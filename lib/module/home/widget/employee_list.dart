@@ -54,7 +54,7 @@ class EmployeeList extends StatelessWidget {
               Container(
                   color: AppColors.borderColor,
                   width: double.infinity,
-                  padding: EdgeInsets.all(16.w),
+                  padding: const EdgeInsets.all(16),
                   child: Text(
                     AppStrings.currentEmployees,
                     style: AppStyles.textStyle16.copyWith(
@@ -69,8 +69,8 @@ class EmployeeList extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return Dismissible(
-                      key: Key(currentEmployees[index].id.toString()),
-                      // key: UniqueKey(),
+                      // key: Key(currentEmployees[index].id.toString()),
+                      key: UniqueKey(),
                       direction: DismissDirection.endToStart,
                       onDismissed: (direction) {
                         // Delete employee
@@ -79,7 +79,7 @@ class EmployeeList extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 16.w, vertical: 10.h),
+                                horizontal: 16, vertical: 10.h),
                             content: const CustomSnackBar(),
                             // Text(
                             //   AppStrings.deleteDataMessage,
@@ -130,7 +130,7 @@ class EmployeeList extends StatelessWidget {
               Container(
                   color: AppColors.borderColor,
                   width: double.infinity,
-                  padding: EdgeInsets.all(16.w),
+                  padding: const EdgeInsets.all(16),
                   child: Text(
                     AppStrings.previousEmployees,
                     style: AppStyles.textStyle16.copyWith(
@@ -145,8 +145,8 @@ class EmployeeList extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Dismissible(
-                      key: Key(previousEmployees[index].id.toString()),
-                      // key: UniqueKey(),
+                      // key: Key(previousEmployees[index].id.toString()),
+                      key: UniqueKey(),
                       direction: DismissDirection.endToStart,
                       onDismissed: (direction) {
                         // Delete employee
@@ -154,7 +154,7 @@ class EmployeeList extends StatelessWidget {
                             DeleteEmployee(previousEmployees[index].id ?? 0));
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 16.w, vertical: 10.h),
+                              horizontal: 16, vertical: 10.h),
                           content: const CustomSnackBar(),
                         ));
                       },

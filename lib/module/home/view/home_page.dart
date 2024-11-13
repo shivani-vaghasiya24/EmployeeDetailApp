@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            titleSpacing: 16.w,
+            titleSpacing: 16,
             elevation: 0,
             title: Text(AppStrings.employeeList, style: AppStyles.textStyle18)),
         body: BlocBuilder<EmployeeBloc, EmployeeState>(
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                       height: 80.h,
                       width: double.infinity,
                       color: AppColors.borderColor,
-                      padding: EdgeInsets.only(top: 12.h, left: 16.w),
+                      padding: EdgeInsets.only(top: 12.h, left: 16),
                       child: Text(AppStrings.swipeLeftToDelete,
                           style: AppStyles.textStyle12.copyWith(
                             fontSize: 15,
@@ -57,8 +57,8 @@ class HomePage extends StatelessWidget {
           },
         ),
         floatingActionButton: SizedBox(
-          height: 50.h,
-          width: 50.w,
+          height: 50,
+          width: 50,
           child: FloatingActionButton(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.r)),
